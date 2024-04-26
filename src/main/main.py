@@ -32,7 +32,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 
 #Drug were read from drugbank
-X_unlabled = pd.read_csv(r'data\drugData.csv.gz',compression='gzip',index_col=0)
+X_unlabled = pd.read_csv(r'/content/drug_safety_pregnancy_prediction/data/drugData.csv.gz',compression='gzip',index_col=0)
 modalities_df = pd.read_csv(r'/content/drug_safety_pregnancy_prediction/data/modalities.csv.gz',compression='gzip',index_col=0)
 print('done reading from disk')
 
