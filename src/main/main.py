@@ -33,7 +33,7 @@ pd.set_option('display.width', None)
 
 #Drug were read from drugbank
 X_unlabled = pd.read_csv(r'/content/drug_safety_pregnancy_prediction/data/sample_data_s.csv.gz',compression='gzip',index_col=0)
-modalities_df = pd.read_csv(r'/content/drug_safety_pregnancy_prediction/data/sample_data_s.csv.gz',compression='gzip',index_col=0)
+modalities_df = pd.read_csv(r'/content/drug_safety_pregnancy_prediction/data/modalities.csv.gz',compression='gzip',index_col=0)
 print('done reading from disk')
 
 #Setting relevant modalities
@@ -41,31 +41,31 @@ base_mods = ['ATC_Level_1_description', 'ATC_Level_2_description', 'ATC_Level_3_
 mods_domain_expert = ['Category', 'ATC_Level_3_description', 'ATC_Level_2_description', 'ATC_Level_4_description', 'Associated_condition', 'Taxonomy']
 
 #Adding our features
-#X_unlabled_text = extract_text_features(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature']])
+X_unlabled_text = extract_text_features(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature']])
 #New Line
 #X_unlabled_text = extract_text_features(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature'].tolist()])
-#X_unlabled, modalities_df= add_mods(X_unlabled, X_unlabled_text, modalities_df, 'Text')
-#print(X_unlabled_text.columns)
-#text_mods = ['Text']
-#print('done processing text')
-#num_clusters=3600 #Number of custers to create. 3600 was optimal in paper.
-#clustering_mods=[]
-#X_cluster = get_col_clusters(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature']], num_clusters)
-#print('clusters head:')
-#print(X_cluster.head())
-#print(X_cluster.columns)
-#mod_name='Clusters'
-#clustering_mods.append(mod_name)
-#X_unlabled , modalities_df= add_mods(X_unlabled, X_cluster, modalities_df, mod_name)
-#print('done clustering')
+X_unlabled, modalities_df= add_mods(X_unlabled, X_unlabled_text, modalities_df, 'Text')
+print(X_unlabled_text.columns)
+text_mods = ['Text']
+print('done processing text')
+num_clusters=3600 #Number of custers to create. 3600 was optimal in paper.
+clustering_mods=[]
+X_cluster = get_col_clusters(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature']], num_clusters)
+print('clusters head:')
+print(X_cluster.head())
+print(X_cluster.columns)
+mod_name='Clusters'
+clustering_mods.append(mod_name)
+X_unlabled , modalities_df= add_mods(X_unlabled, X_cluster, modalities_df, mod_name)
+print('done clustering')
 
 #Writing new data to disk
-#X_unlabled.to_csv(r'data\drugData_w_text.csv.gz',compression='gzip')
-#modalities_df.to_csv(r'data\modalities_w_text.csv.gz',compression='gzip')
+X_unlabled.to_csv(r'data\drugData_w_text.csv.gz',compression='gzip')
+modalities_df.to_csv(r'data\modalities_w_text.csv.gz',compression='gzip')
 
 #print("done preproc")
-#all_modalities = list(modalities_df.modality.unique())
-#print('mods:',all_modalities)
+all_modalities = list(modalities_df.modality.unique())
+print('mods:',all_modalities)
 
 def cv_eval(X_unlabled, classifiers, exp_name):
     # ###### CV exp
