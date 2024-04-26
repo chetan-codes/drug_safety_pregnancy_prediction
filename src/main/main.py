@@ -17,13 +17,18 @@ from src.drug_classification.pregnancy_drug_experment import  transform_labels, 
 from src.multimodal_learning.multimodal_classifiers import multimodal_classifiers
 import pandas as pd
 
-def add_mods(X,X2,mods,modality_name):
+#def add_mods(X,X2,mods,modality_name):
     #function used to add new modality to the data
-    for c in X2.columns:
-        mods = mods.append({'modality': modality_name, 'feature': c}, ignore_index=True)
+#    for c in X2.columns:
+#        mods = mods.append({'modality': modality_name, 'feature': c}, ignore_index=True)
+#    X = X.join(X2, how='left')
+#    return X, mods
+def add_mods(X, X2, mods, modality_name):
+    # function used to add new modality to the data
+    new_mods = pd.DataFrame({'modality': [modality_name] * len(X2.columns), 'feature': X2.columns})
+    mods = pd.concat([mods, new_mods], ignore_index=True)
     X = X.join(X2, how='left')
     return X, mods
-
 
 seed= 0
 random.seed(seed)
