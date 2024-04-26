@@ -69,7 +69,7 @@ def extract_text_features(X_unlabled):
     count_vect = CountVectorizer(binary=True)
     a = a.fillna('')
     word_counts = count_vect.fit_transform(a)
-    text_features = ['Mention: ' + x for x in count_vect.get_feature_names()]
+    text_features = ['Mention: ' + x for x in count_vect.get_feature_names_out()]
     text_features = pd.DataFrame(word_counts.toarray(), columns=text_features, index=a.index)
     a = pd.DataFrame(index=X_unlabled.index).join(text_features, how='left').fillna('')
     # for c in text_features:
