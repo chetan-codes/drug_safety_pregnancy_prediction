@@ -41,7 +41,9 @@ base_mods = ['ATC_Level_1_description', 'ATC_Level_2_description', 'ATC_Level_3_
 mods_domain_expert = ['Category', 'ATC_Level_3_description', 'ATC_Level_2_description', 'ATC_Level_4_description', 'Associated_condition', 'Taxonomy']
 
 #Adding our features
-X_unlabled_text = extract_text_features(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature']])
+#X_unlabled_text = extract_text_features(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature']])
+#New Line
+X_unlabled_text = extract_text_features(X_unlabled[modalities_df.loc[modalities_df.modality.isin(mods_domain_expert), 'feature'].tolist()])
 X_unlabled, modalities_df= add_mods(X_unlabled, X_unlabled_text, modalities_df, 'Text')
 print(X_unlabled_text.columns)
 text_mods = ['Text']
