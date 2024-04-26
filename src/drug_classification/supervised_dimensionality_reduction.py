@@ -86,7 +86,7 @@ def get_col_clusters(X_unlabled,number_of_clusters):
     #count_vect = TfidfVectorizer(ngram_range=(2, 5), analyzer='char_wb',max_features=1000)  # 2-5 char_wb improves cat
     word_counts = count_vect.fit_transform(s)
     word_counts = word_counts
-    text_features = count_vect.get_feature_names()
+    text_features = count_vect.get_feature_names_out()
     text_features = pd.DataFrame(word_counts.toarray(), columns=text_features, index=s.index)
     ans = None
     print('features,words:',text_features.values.shape)
@@ -135,7 +135,7 @@ def get_lda_cluster(X_unlabled,num_clusters):
 
     count_vect = CountVectorizer(stop_words='english')
     word_counts = count_vect.fit_transform(columns_data)
-    #text_features = count_vect.get_feature_names()
+    #text_features = count_vect.get_feature_names_out()
     #text_features = pd.DataFrame(word_counts.toarray(), columns=text_features, index=columns_data.index)
     # Create and fit the LDA model
     from sklearn.decomposition import LatentDirichletAllocation as LDA
